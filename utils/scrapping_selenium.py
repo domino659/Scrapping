@@ -8,6 +8,7 @@ from utils.json_loader import get_web_data
 
 # Or https://partsurfer.hpe.com/Search.aspx?SearchText=CZJ029073S
 DRIVER_PATH = "C:/ChromeDriver/chromedriver.exe"
+driver = webdriver.Chrome(DRIVER_PATH)
 
 def detect_capcha(driver):
     try:
@@ -62,7 +63,6 @@ def hp_warrenty_check():
         product_numbers_batch = product_numbers[number_index:number_index+20]
         number_index += 20
 
-        driver = webdriver.Chrome(DRIVER_PATH)
         driver.get(get_web_data()["hp"]["website"]["warrenty_check"])
         
         sleep(randint(2,3))
