@@ -1,0 +1,201 @@
+{
+  "hp": {
+    "website": {
+      "warrenty_check": "https://support.hpe.com/hpsc/wc/public/home",
+      "part_surfer": "https://partsurfer.hpe.com/search.aspx "
+    },
+    "data": {
+      "0": {
+        "serial_number": "CZJ029073S",
+        "brand": "HPE",
+        "modele": "DL360 Gen10",
+        "product_number": "867959-B21"        
+      },
+      "1": {
+        "serial_number": "CZJ029073T",
+        "brand": "HPE",
+        "modele": "DL360 Gen10",
+        "product_number": "867959-B21"             
+      },
+      "2": {
+        "serial_number": "ACM029T0XJ",
+        "brand": "HPE",
+        "modele": "MSA 1050",
+        "product_number": "Q2R21B"             
+      },
+      "3": {
+        "serial_number": "CZ20290VD0",
+        "brand": "HPE",
+        "modele": "StoreOnce 3620 24TB System",
+        "product_number": "BB954A"             
+      },
+      "4": {
+        "serial_number": "ACM029T0XJ",
+        "brand": "HPE",
+        "modele": "MSA 1050",
+        "product_number": "Q2R21B"             
+      },
+      "5": {
+        "serial_number": "CZ20290VD0",
+        "brand": "HPE",
+        "modele": "StoreOnce 3620 24TB System",
+        "product_number": "BB954A"             
+      },
+      "6": {
+        "serial_number": "ACM029T0XJ",
+        "brand": "HPE",
+        "modele": "MSA 1050",
+        "product_number": "Q2R21B"             
+      },
+      "7": {
+        "serial_number": "CZ20290VD0",
+        "brand": "HPE",
+        "modele": "StoreOnce 3620 24TB System",
+        "product_number": "BB954A"             
+      },
+      "8": {
+        "serial_number": "ACM029T0XJ",
+        "brand": "HPE",
+        "modele": "MSA 1050",
+        "product_number": "Q2R21B"             
+      },
+      "9": {
+        "serial_number": "CZ20290VD0",
+        "brand": "HPE",
+        "modele": "StoreOnce 3620 24TB System",
+        "product_number": "BB954A"             
+      },
+      "10": {
+        "serial_number": "ACM029T0XJ",
+        "brand": "HPE",
+        "modele": "MSA 1050",
+        "product_number": "Q2R21B"             
+      },
+      "11": {
+        "serial_number": "CZ20290VD0",
+        "brand": "HPE",
+        "modele": "StoreOnce 3620 24TB System",
+        "product_number": "BB954A"             
+      },
+      "12": {
+        "serial_number": "ACM029T0XJ",
+        "brand": "HPE",
+        "modele": "MSA 1050",
+        "product_number": "Q2R21B"             
+      },
+      "13": {
+        "serial_number": "CZ20290VD0",
+        "brand": "HPE",
+        "modele": "StoreOnce 3620 24TB System",
+        "product_number": "BB954A"             
+      },
+      "14": {
+        "serial_number": "ACM029T0XJ",
+        "brand": "HPE",
+        "modele": "MSA 1050",
+        "product_number": "Q2R21B"             
+      },
+      "15": {
+        "serial_number": "CZ20290VD0",
+        "brand": "HPE",
+        "modele": "StoreOnce 3620 24TB System",
+        "product_number": "BB954A"             
+      },
+      "16": {
+        "serial_number": "ACM029T0XJ",
+        "brand": "HPE",
+        "modele": "MSA 1050",
+        "product_number": "Q2R21B"             
+      },
+      "17": {
+        "serial_number": "CZ20290VD0",
+        "brand": "HPE",
+        "modele": "StoreOnce 3620 24TB System",
+        "product_number": "BB954A"             
+      },
+      "18": {
+        "serial_number": "ACM029T0XJ",
+        "brand": "HPE",
+        "modele": "MSA 1050",
+        "product_number": "Q2R21B"             
+      },
+      "19": {
+        "serial_number": "ACM029T0XJ",
+        "brand": "HPE",
+        "modele": "MSA 1050",
+        "product_number": "Q2R21B"             
+      },
+      "20": {
+        "serial_number": "CZ20290VD0",
+        "brand": "HPE",
+        "modele": "StoreOnce 3620 24TB System",
+        "product_number": "BB954A"             
+      },
+      "21": {
+        "serial_number": "ACM029T0XJ",
+        "brand": "HPE",
+        "modele": "MSA 1050",
+        "product_number": "Q2R21B"             
+      }
+    }
+  },
+  "dell": {
+    "website": {
+      "support": "https://www.dell.com/support/home/fr-fr"
+    },
+    "data": {
+      "0": {
+        "serial_number": "49YHBX2",
+        "brand": "DEL",
+        "modele": "PowerVault ME424 Expansion"
+      },
+      "1": {
+        "serial_number": "DN9NBX2",
+        "brand": "DEL",
+        "modele": "PowerVault ME4024"
+      },
+      "2": {
+        "serial_number": "FN9NBX2",
+        "brand": "DEL",
+        "modele": "PowerVault ME4024"
+      },
+      "3": {
+        "serial_number": "6S5CBX2",
+        "brand": "DEL",
+        "modele": "PowerEdge R740"
+      },
+      "4": {
+        "serial_number": "JQVD8X2",
+        "brand": "DEL",
+        "modele": "PowerVault ME4012"
+      },
+      "5": {
+        "serial_number": "1RVD8X2",
+        "brand": "DEL",
+        "modele": "PowerVault ME412 Expansion"
+      },
+      "6": {
+        "serial_number": "5FJD8X2",
+        "brand": "DEL",
+        "modele": "PowerEdge R640"
+      },
+      "7": {
+        "serial_number": "4FJD8X2",
+        "brand": "DEL",
+        "modele": "PowerEdge R640"
+      }
+    }
+  },
+  "netapp": {
+    "website": {
+      "support": "https://mysupport.netapp.com"
+    },
+    "data": {
+      "0": {
+        "serial_number": "4FJD8X2",
+        "brand": "DEL",
+        "modele": "PowerEdge R640"
+      }
+    }
+  }
+}
