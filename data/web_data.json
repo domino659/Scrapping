@@ -124,18 +124,6 @@
         "brand": "HPE",
         "modele": "MSA 1050",
         "product_number": "Q2R21B"             
-      },
-      "20": {
-        "serial_number": "CZ20290VD0",
-        "brand": "HPE",
-        "modele": "StoreOnce 3620 24TB System",
-        "product_number": "BB954A"             
-      },
-      "21": {
-        "serial_number": "ACM029T0XJ",
-        "brand": "HPE",
-        "modele": "MSA 1050",
-        "product_number": "Q2R21B"             
       }
     }
   },
