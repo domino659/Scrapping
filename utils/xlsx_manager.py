@@ -8,11 +8,23 @@ DATA_FILE = os.path.join(CUR_DIR, "data", "data.xlsx")
 def open_xlsx():
     df = pd.read_excel(DATA_FILE, engine='openpyxl')
     print(df)
+    array = df.to_numpy()
+    print(array)
+    return array
 
-    df = pd.DataFrame({'States':['California', 'Florida', 'Montana', 'Colorodo', 'Washington', 'Virginia'],
-    'Capitals':['Sacramento', 'Tallahassee', 'Helena', 'Denver', 'Olympia', 'Richmond'],
-    'Population':['508529', '193551', '32315', '619968', '52555', '227032']})
-    df.to_excel('./data/data.xlsx', sheet_name='States')
+
+def modify_xlsx():
+    array = open_xlsx()
+    # place array into df
+    # Replace df
+    df = pd.DataFrame({'serial_number':['CZJ029073S', 'CZJ029073T', 'ACM029T0XJ', 'CZ20290VD0'],
+    'brand':['HPE', 'HPE', 'HPE', 'HPE'],
+    'modele':['DL360 Gen10', 'DL360 Gen10', 'MSA 1050', 'StoreOnce 3620 24TB System'],
+    'product_number':['867959-B21', '867959-B21', 'Q2R21B', 'BB954A']
+    })
+    # Chose wich page to replace
+    df.to_excel('./data/data.xlsx', sheet_name='HP_Test')
+
 
 
 # income1 = pd.DataFrame({'Names': ['Stephen', 'Camilla', 'Tom'],
