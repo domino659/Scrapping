@@ -6,25 +6,23 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 
 from utils.json_loader import get_web_data
+from utils.xlsx_manager import open_xlsx
 from utils.captcha.captcha_text import detect_capcha
+from utils.log import *
 
 DRIVER_PATH = "C:/ChromeDriver/chromedriver.exe"
 
 def hp_warrenty_check():
     number_index = 0
     # Extract data from json
-    data = get_web_data()["hp"]["data"]
-    serial_numbers = []
-    product_numbers = []
-    for i in data:
-        serial_numbers.append(data[i]["serial_number"])
-        product_numbers.append(data[i]["product_number"])
-        i=+1
+    data = open_xlsx()
+    serial_numbers = list(data["serial_number"].values())
+    product_numbers = list(data["product_number"].values())
 
     driver = webdriver.Chrome(DRIVER_PATH)
-    
     # Splice them 20 by 20 as hp site can't get more than 20 input
-    while number_index < len(serial_numbers):
+    while number_index < (len(serial_numbers)-1):
+        logging.info("Scrapping Started.")
         serial_numbers_batch = serial_numbers[number_index:number_index+20]
         product_numbers_batch = product_numbers[number_index:number_index+20]
         # Load Page
@@ -74,8 +72,17 @@ def hp_warrenty_check():
             product_detail_link = product_detail.find_element_by_link_text("Afficher les détails")
             product_detail_link.click()
 
+            sleep(1)
+            contrat_assistance = driver.find_element_by_xpath("//*[@id='introBlock']/table[1]").text
+            print(type(contrat_assistance))
+            garantie = driver.find_element_by_xpath("//*[@id='introBlock']/table[2]").text
+            print(type(garantie))
+            # content = driver.find_element().text
+            # print(content)
             # Log into file each product scrapped
             # DEBUG
+            logging.info(f"Index number {number_index} is being processed.")
+
             print(i)
             print(f"number index {number_index}")
             
@@ -84,8 +91,6 @@ def hp_warrenty_check():
             back_to_menu.click()
             i+= 1
             number_index += 1
-
-hp_warrenty_check()
 
 
 
