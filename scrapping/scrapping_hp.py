@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 
 from utils.json_loader import get_web_data
-from utils.xlsx_manager import open_xlsx
+from utils.xlsx_manager import open_xlsx, write_xlsx
 from utils.captcha.captcha_text import detect_capcha
 from utils.log import *
 from utils.text_modifier import simplify
@@ -85,19 +85,19 @@ def hp_warrenty_check():
             sleep(2)
 
             contrat_assistance = driver.find_element_by_xpath(
-                "//*[@id='introBlock']/table[1]").get_attribute('innerHTML').encode('utf-8')
-            print("UNTOUCHED DATA")
-            print(type(contrat_assistance))
+                "//*[@id='introBlock']/table[1]").get_attribute('innerHTML')
+            print("RAW")
             print(contrat_assistance)
             data_contrat_assistance = table_scrap(contrat_assistance)
             print("DATA")
             print(data_contrat_assistance)
 
             garantie = driver.find_element_by_xpath(
-                "//*[@id='introBlock']/table[2]").get_attribute('innerHTML').encode('utf-8')
-
-            # data_garantie = table_scrap(garantie)
-            # print(data_garantie)
+                "//*[@id='introBlock']/table[2]").get_attribute('innerHTML')
+            data_garantie = table_scrap(garantie)
+            print("DATA")
+            print(data_garantie)
+            write_xlsx(data_garantie)
 
             # Log into file each product scrapped
             # DEBUG

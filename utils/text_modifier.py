@@ -1,3 +1,12 @@
+def normalizer(datas):
+    normalized_data = []
+    print(datas)
+    for data in datas:
+        print(data)
+        normalized_data.append(normalize('NFKC', data).rstrip())
+    return normalized_data
+
+
 def simplify(text):
     import unicodedata
     text = unicodedata.normalize('NFD', str(text)).encode(

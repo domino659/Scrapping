@@ -27,3 +27,12 @@ def modify_xlsx():
                        })
     # Chose wich page to replace
     df.to_excel('./data/data.xlsx', sheet_name='HP_Test')
+
+
+def write_xlsx(data):
+    array = open_xlsx()
+    # place array into df
+    # Replace df
+    df = pd.DataFrame(data)
+    # Chose wich page to replace
+    df.to_excel('./data/data_test.xlsx', sheet_name='HP_Test')
