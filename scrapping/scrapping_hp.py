@@ -9,7 +9,6 @@ from utils.json_loader import get_web_data
 from utils.xlsx_manager import open_xlsx, write_xlsx
 from utils.captcha.captcha_text import detect_capcha
 from utils.log import *
-from utils.text_modifier import simplify
 from utils.scrapping.bs4 import table_scrap
 
 DRIVER_PATH = "C:/ChromeDriver/chromedriver.exe"
@@ -86,8 +85,6 @@ def hp_warrenty_check():
 
             contrat_assistance = driver.find_element_by_xpath(
                 "//*[@id='introBlock']/table[1]").get_attribute('innerHTML')
-            print("RAW")
-            print(contrat_assistance)
             data_contrat_assistance = table_scrap(contrat_assistance)
             print("DATA")
             print(data_contrat_assistance)

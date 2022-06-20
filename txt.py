@@ -1,84 +1,48 @@
-import unicodedata
-from utils.text_modifier import text_cleaner
-
-contrat_assistance = [['Type de garantie:\xa0\xa0', 'Contrat'], ['Type de service:\xa0\xa0', 'HPE Foundation Care 24x7 SVC'], ['Type de service:\xa0\xa0', 'HPE Hardware Maintenance Onsite Support*'], ['\\xc3\\x89tat:\xa0\xa0', 'Active '], ['Date de d\\xc3\\xa9but:\xa0\xa0',
-                                                                                                                                                                                                                                                '7 ao\\xc3\\xbbt 2020'], ['Date de fin:\xa0\xa0', '6 ao\\xc3\\xbbt 2025'], ['Type de service:\xa0\xa0', 'HPE Collaborative Remote Support'], ['\\xc3\\x89tat:\xa0\xa0', 'Active '], ['Date de d\\xc3\\xa9but:\xa0\xa0', '7 ao\\xc3\\xbbt 2020'], ['Date de fin:\xa0\xa0', '6 ao\\xc3\\xbbt 2025']]
+from bs4 import BeautifulSoup as bs
 
 
-def array_cleaner(array):
-    for elements in array:
-        array.append(text_cleaner(elements))
+from utils.xlsx_manager import open_xlsx
+from utils.text_modifier import normalizer
+
+# data = '''<tbody><tr><td style="width:25%" class="hpui-padding-bottom-10">Type de garantie:&nbsp;&nbsp;</td><td class="hpui-padding-bottom-10">Garantie de base</td></tr><tr><td class="hpui-padding-bottom-10">Type de service:&nbsp;&nbsp;</td><td class="hpui-padding-bottom-10"><b>Wty: HPE HW Maintenance Onsite Support*</b></td></tr><tr><td class="hpui-padding-bottom-10">État:&nbsp;&nbsp;</td><td class="hpui-padding-bottom-10 hpui-emphasized-text" style="color: Green">Active </td></tr><tr><td class="hpui-padding-bottom-10">Date de début:&nbsp;&nbsp;</td><td class="hpui-padding-bottom-10">20 juil. 2020</td></tr><tr><td class="hpui-padding-bottom-10">Date de fin:&nbsp;&nbsp;</td><td class="hpui-padding-bottom-10">18 août 2023</td></tr><tr><td valign="top" class="hpui-padding-bottom-10">Niveaux de service&nbsp;:&nbsp;&nbsp;</td><td class="hpui-padding-bottom-10">Standard Material Handling<br>Global Coverage<br>NextAvail TechResource Remote<br>Std Office Hrs Std Office Days<br>NextAvail TechResource Onsite<br>Next Cov Day Onsite Response<br>Standard Parts Logistics<br>No Usage Limitation<br></td></tr><tr><td valign="top" class="hpui-padding-bottom-10">Éléments à livrer:&nbsp;&nbsp;</td><td class="hpui-padding-bottom-10">Onsite Support<br>Parts and Material provided<br>Hardware Problem Diagnosis<br></td></tr><tr><td class="hpui-padding-bottom-10">Type de service:&nbsp;&nbsp;</td><td class="hpui-padding-bottom-10"><b>Wty: HPE Support for Initial Setup</b></td></tr><tr><td class="hpui-padding-bottom-10">État:&nbsp;&nbsp;</td><td class="hpui-padding-bottom-10 hpui-emphasized-text" style="color: Red">Expiré</td></tr><tr><td class="hpui-padding-bottom-10">Date de début:&nbsp;&nbsp;</td><td class="hpui-padding-bottom-10">20 juil. 2020</td></tr><tr><td class="hpui-padding-bottom-10">Date de fin:&nbsp;&nbsp;</td><td class="hpui-padding-bottom-10">16 nov. 2020</td></tr><tr><td valign="top" class="hpui-padding-bottom-10">Niveaux de service&nbsp;:&nbsp;&nbsp;</td><td class="hpui-padding-bottom-10">NextAvail TechResource Remote<br>Std Office Hrs Std Office Days<br>2 Hr Remote Response<br>Unlimited Named Callers<br></td></tr><tr><td valign="top" class="hpui-padding-bottom-10">Éléments à livrer:&nbsp;&nbsp;</td><td class="hpui-padding-bottom-10">Initial Setup Assistance<br></td></tr><tr><td colspan="2" class="hpui-secondary-text1"><span class="hpui-emphasized-text">* Remarque&nbsp;:</span> Selon les termes d'assistance sur site HPE HW Maintenance&nbsp;; HPE peut à sa seule discrétion décider si un défaut est réparable&nbsp;:<ul><li>À distance</li><li>À l'aide d'une pièce de réparation par le client</li><li>Par une demande d'intervention à l'emplacement de l'appareil défectueux</li></ul>Pour plus de détails consultez le document «&nbsp;Garantie limitée et assistance technique internationales&nbsp;» qui a été livré avec le produit.<p></p></td></tr></tbody>'''
+
+# content = unescape(unicodedata.normalize('NFKC', data))
 
 
-array_cleaner(contrat_assistance)
-
-contrat_assistance = """type de garantie:   contrat
-type de service:   hpe foundation care 24x7 svc
-type de service:   hpe hardware maintenance onsite support*
-etat:   active
-date de debut:   7 aout 2020
-date de fin:   6 aout 2025
-type de service:   hpe collaborative remote support
-etat:   active
-date de debut:   7 aout 2020
-date de fin:   6 aout 2025"""
-
-garantie = """type de garantie:   garantie de base
-type de service:   wty: hpe hw maintenance onsite support*
-etat:   active
-date de debut:   20 juil. 2020
-date de fin:   18 aout 2023
-niveaux de service :   standard material handling
-global coverage
-nextavail techresource remote
-std office hrs std office days
-nextavail techresource onsite
-no usage limitation
-next cov day onsite response
-standard parts logistics
-elements a livrer:   onsite support
-parts and material provided
-hardware problem diagnosis
-type de service:   wty: hpe support for initial setup
-etat:   expire
-date de debut:   20 juil. 2020
-date de fin:   16 nov. 2020
-niveaux de service :   nextavail techresource remote
-std office hrs std office days
-2 hr remote response
-unlimited named callers
-elements a livrer:   initial setup assistance
-* remarque : selon les termes d'assistance sur site hpe hw maintenance ; hpe peut a sa seule discretion decider si un defaut est reparable :
-a distance
-a l'aide d'une piece de reparation par le client
-par une demande d'intervention a l'emplacement de l'appareil defectueux
-pour plus de details consultez le document  garantie limitee et assistance technique internationales  qui a ete livre avec le produit."""
-
-# text = "Date de fin:\xa0\xa0', '6 ao�t 2025"
-# try:
-#     text = unicode(text, 'utf-8')
-# except NameError:
-#     pass
-#     text = unicodedata.normalize('NFD', text).encode(
-#         'ascii', 'ignore').decode("utf-8")
-# print(str(text))
+# soup = bs((content), 'lxml')
+# table = []
+# rows = soup.find_all('tr')
+# for row in rows:
+#     table_row = []
+#     columns = row.find_all('td')
+#     for column in columns:
+#         table_row.append(column.get_text())
+#     table.append(normalizer(table_row))
+# print(table)
 
 
-def txt_cleaner():
-    contrat_assistance = text_cleaner(contrat_assistance)
-    garantie = text_cleaner(garantie)
-    garantie = garantie[: -5]
-    print(garantie)
+contrat = [['Type de garantie:', 'Contrat'], ['Type de service:', 'HPE Foundation Care 24x7 SVC'], ['Type de service:', 'HPE Hardware Maintenance Onsite Support*'], ['État:', 'Active'], ['Date de début:',
+                                                                                                                                                                                           '7 août 2020'], ['Date de fin:', '6 août 2025'], ['Type de service:', 'HPE Collaborative Remote Support'], ['État:', 'Active'], ['Date de début:', '7 août 2020'], ['Date de fin:', '6 août 2025']]
+garantie = [['Type de garantie:', 'Garantie de base'], ['Type de service:', 'Wty: HPE HW Maintenance Onsite Support*'], ['État:', 'Active'], ['Date de début:', '20 juil. 2020'], ['Date de fin:', '18 août 2023'], ['Niveaux de service :', 'Standard Material HandlingGlobal CoverageNextAvail TechResource RemoteStd Office Hrs Std Office DaysNextAvail TechResource OnsiteNext Cov Day Onsite ResponseStandard Parts LogisticsNo Usage Limitation'], ['Éléments à livrer:', 'Onsite SupportParts and Material providedHardware Problem Diagnosis'], ['Type de service:', 'Wty: HPE Support for Initial Setup'], ['État:', 'Expiré'], ['Date de début:',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           '20 juil. 2020'], ['Date de fin:', '16 nov. 2020'], ['Niveaux de service:', 'NextAvail TechResource RemoteStd Office Hrs Std Office Days2 Hr Remote ResponseUnlimited Named Callers'], ['Éléments à livrer:', 'Initial Setup Assistance'], ["* Remarque : Selon les termes d'assistance sur site HPE HW Maintenance; HPE peut à sa seule discrétion décider si un défaut est réparable:À distanceÀ l'aide d'une pièce de réparation par le clientPar une demande d'intervention à l'emplacement de l'appareil défectueuxPour plus de détails consultez le document « Garantie limitée et assistance technique internationales » qui a été livré avec le produit."]]
 
-    i = 0
-    # for elem in contrat_assistance:
-    #     print(dict([elem]))
-    #     i = + 1
 
-    for elem in garantie:
-        # print(elem)
-        try:
-            print(dict([elem]))
-        except ValueError:
-            concatenate = str(elem[1] + ': ' + elem[2])
-            print(dict([[elem[0], concatenate]]))
+def write_xlsx(data):
+    array = open_xlsx()
+    # print(array)
+
+
+write_xlsx(contrat)
+
+
+# pop first element array
+# put this element as Key
+# and rest as value wiht index
+
+my_list = ['Nagendra', 'Babu', 'Nitesh', 'Sathya']
+my_dict = dict()
+for index, value in enumerate(contrat):
+    my_dict[index] = value
+print(my_dict)
+# OUTPUT
+{0: 'Nagendra', 1: 'Babu', 2: 'Nitesh', 3: 'Sathya'}
