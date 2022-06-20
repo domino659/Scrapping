@@ -20,6 +20,7 @@ def hp_warrenty_check():
     # Extract data from json
     data = open_xlsx()
     serial_numbers = list(data["serial_number"].values())
+    print(serial_numbers)
     product_numbers = list(data["product_number"].values())
 
     driver = webdriver.Chrome(DRIVER_PATH)
