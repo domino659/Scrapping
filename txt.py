@@ -1,5 +1,16 @@
-from utils.text_modifier import text_parser
-from unidecode import unidecode
+import unicodedata
+from utils.text_modifier import text_cleaner
+
+contrat_assistance = [['Type de garantie:\xa0\xa0', 'Contrat'], ['Type de service:\xa0\xa0', 'HPE Foundation Care 24x7 SVC'], ['Type de service:\xa0\xa0', 'HPE Hardware Maintenance Onsite Support*'], ['\\xc3\\x89tat:\xa0\xa0', 'Active '], ['Date de d\\xc3\\xa9but:\xa0\xa0',
+                                                                                                                                                                                                                                                '7 ao\\xc3\\xbbt 2020'], ['Date de fin:\xa0\xa0', '6 ao\\xc3\\xbbt 2025'], ['Type de service:\xa0\xa0', 'HPE Collaborative Remote Support'], ['\\xc3\\x89tat:\xa0\xa0', 'Active '], ['Date de d\\xc3\\xa9but:\xa0\xa0', '7 ao\\xc3\\xbbt 2020'], ['Date de fin:\xa0\xa0', '6 ao\\xc3\\xbbt 2025']]
+
+
+def array_cleaner(array):
+    for elements in array:
+        array.append(text_cleaner(elements))
+
+
+array_cleaner(contrat_assistance)
 
 contrat_assistance = """type de garantie:   contrat
 type de service:   hpe foundation care 24x7 svc
@@ -43,21 +54,31 @@ a l'aide d'une piece de reparation par le client
 par une demande d'intervention a l'emplacement de l'appareil defectueux
 pour plus de details consultez le document  garantie limitee et assistance technique internationales  qui a ete livre avec le produit."""
 
+# text = "Date de fin:\xa0\xa0', '6 ao�t 2025"
+# try:
+#     text = unicode(text, 'utf-8')
+# except NameError:
+#     pass
+#     text = unicodedata.normalize('NFD', text).encode(
+#         'ascii', 'ignore').decode("utf-8")
+# print(str(text))
 
-contrat_assistance = text_parser(contrat_assistance)
-garantie = text_parser(garantie)
-garantie = garantie[:-5]
-print(garantie)
 
-i = 0
-# for elem in contrat_assistance:
-#     print(dict([elem]))
-#     i = + 1
+def txt_cleaner():
+    contrat_assistance = text_cleaner(contrat_assistance)
+    garantie = text_cleaner(garantie)
+    garantie = garantie[: -5]
+    print(garantie)
 
-for elem in garantie:
-    # print(elem)
-    try:
-        print(dict([elem]))
-    except ValueError:
-        concatenate = str(elem[1] + ': ' + elem[2])
-        print(dict([[elem[0], concatenate]]))
+    i = 0
+    # for elem in contrat_assistance:
+    #     print(dict([elem]))
+    #     i = + 1
+
+    for elem in garantie:
+        # print(elem)
+        try:
+            print(dict([elem]))
+        except ValueError:
+            concatenate = str(elem[1] + ': ' + elem[2])
+            print(dict([[elem[0], concatenate]]))
