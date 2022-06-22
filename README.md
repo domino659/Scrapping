@@ -1,12 +1,11 @@
 # Scrapping
 
-selenium
-beautifulsoup
+### Requirement:
+Download and install:
+- chromedriver.exe
+- Tesseract-OCR
 
+Fill the correct path of each .exe in the variable folder.
 
-Informations:
-matériel: modèle/configuation/capacité/niveaux techniques/
-service: attché: début/fin/type
-demandes de services
-
-If one will shutdown fix this
+Terminal (with Python 3.10):
+> pip install -r requirements.txt

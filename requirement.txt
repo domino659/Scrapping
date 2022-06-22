@@ -1,2 +1,7 @@
+pandas
+selenium
 bs4
+openpyxl
+xlsxwriter
+pytesseract
 lxml

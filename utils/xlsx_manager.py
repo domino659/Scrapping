@@ -13,6 +13,7 @@ DATA_FILE = os.path.join(CUR_DIR, "data", "data.xlsx")
 
 
 def open_xlsx():
+    # Read xlsx document
     df = pd.read_excel(DATA_FILE, engine='openpyxl')
     dict = df.to_dict()
     if df.empty:
@@ -31,9 +32,15 @@ def modify_xlsx(contrat, garantie, number_index):
     data = open_xlsx()
     dd = defaultdict(dict)
 
+    # Regroup the 3 dicts
     for data in (data, contrat_dict, garantie_dict):
         for key, value in data.items():
             dd[key].update(value)
 
+    # Convert it into a dataframe
     df = pd.DataFrame(dd)
-    df.to_excel('./data/data.xlsx', sheet_name='HP')
+
+    # Write it on the xlsx dociment
+    writer = pd.ExcelWriter(DATA_FILE, engine='xlsxwriter')
+    df.to_excel(writer, sheet_name='HP')
+    writer.save()
