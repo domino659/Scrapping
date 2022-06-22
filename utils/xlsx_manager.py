@@ -1,6 +1,12 @@
 import os
 import pandas as pd
 from pathlib import Path
+from collections import defaultdict
+
+
+from utils.text_modifier import array_to_nested_dict, delete_useless_info
+from utils.log import *
+
 
 CUR_DIR = Path(__file__).parent.parent
 DATA_FILE = os.path.join(CUR_DIR, "data", "data.xlsx")
@@ -8,31 +14,26 @@ DATA_FILE = os.path.join(CUR_DIR, "data", "data.xlsx")
 
 def open_xlsx():
     df = pd.read_excel(DATA_FILE, engine='openpyxl')
-    print(df)
     dict = df.to_dict()
+    if df.empty:
+        logging.info("File is empty.")
+        exit("File is empty.")
+
     # Delete unecessary column
     dict.pop("Unnamed: 0")
-    print(dict)
     return dict
 
 
-def modify_xlsx():
-    array = open_xlsx()
-    # place array into df
-    # Replace df
-    df = pd.DataFrame({'serial_number': ['CZJ029073S', 'CZJ029073T', 'ACM029T0XJ', 'CZ20290VD0'],
-                       'brand': ['HPE', 'HPE', 'HPE', 'HPE'],
-                       'modele': ['DL360 Gen10', 'DL360 Gen10', 'MSA 1050', 'StoreOnce 3620 24TB System'],
-                       'product_number': ['867959-B21', '867959-B21', 'Q2R21B', 'BB954A']
-                       })
-    # Chose wich page to replace
-    df.to_excel('./data/data.xlsx', sheet_name='HP_Test')
+def modify_xlsx(contrat, garantie, number_index):
+    filtred_garantie = delete_useless_info(garantie)
+    contrat_dict = array_to_nested_dict(contrat, number_index)
+    garantie_dict = array_to_nested_dict(filtred_garantie, number_index)
+    data = open_xlsx()
+    dd = defaultdict(dict)
 
+    for data in (data, contrat_dict, garantie_dict):
+        for key, value in data.items():
+            dd[key].update(value)
 
-def write_xlsx(data):
-    array = open_xlsx()
-    # place array into df
-    # Replace df
-    df = pd.DataFrame(data)
-    # Chose wich page to replace
-    df.to_excel('./data/data_test.xlsx', sheet_name='HP_Test')
+    df = pd.DataFrame(dd)
+    df.to_excel('./data/data.xlsx', sheet_name='HP')

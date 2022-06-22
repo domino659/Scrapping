@@ -1,12 +1,12 @@
 from time import sleep
-from random import randint
+from sys import exit
+from pandas import isna
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 
 from utils.json_loader import get_web_data
-from utils.xlsx_manager import open_xlsx, write_xlsx
+from utils.xlsx_manager import open_xlsx, modify_xlsx
 from utils.captcha.captcha_text import detect_capcha
 from utils.log import *
 from utils.scrapping.bs4 import table_scrap
@@ -19,8 +19,15 @@ def hp_warrenty_check():
     # Extract data from json
     data = open_xlsx()
     serial_numbers = list(data["serial_number"].values())
+    if isna(serial_numbers).any():
+        logging.info("Can't take empty serial number.")
+        exit("Can't take empty serial number.")
+
     print(serial_numbers)
     product_numbers = list(data["product_number"].values())
+    if isna(product_numbers).any():
+        logging.info("Can't take empty product number.")
+        exit("Can't take empty product number.")
 
     driver = webdriver.Chrome(DRIVER_PATH)
     # Splice them 20 by 20 as hp site can't get more than 20 input
@@ -86,22 +93,19 @@ def hp_warrenty_check():
             contrat_assistance = driver.find_element_by_xpath(
                 "//*[@id='introBlock']/table[1]").get_attribute('innerHTML')
             data_contrat_assistance = table_scrap(contrat_assistance)
-            print("DATA")
-            print(data_contrat_assistance)
 
             garantie = driver.find_element_by_xpath(
                 "//*[@id='introBlock']/table[2]").get_attribute('innerHTML')
             data_garantie = table_scrap(garantie)
-            print("DATA")
-            print(data_garantie)
-            write_xlsx(data_garantie)
 
-            # Log into file each product scrapped
+            modify_xlsx(data_contrat_assistance, data_garantie, number_index)
+
+            # Log for each product scrapped
             # DEBUG
             logging.info(f"Index number {number_index} is being processed.")
 
-            print(i)
-            print(f"number index {number_index}")
+            print(f"Current batch: {i}")
+            print(f"Index {number_index}")
 
             sleep(2)
             back_to_menu = driver.find_element_by_xpath(
@@ -109,16 +113,3 @@ def hp_warrenty_check():
             back_to_menu.click()
             i += 1
             number_index += 1
-
-
-# def hp_part_surfer():
-#     driver.get(get_web_data()["hp"]["website"]["part_surfer"])
-
-#     sleep(randint(3,4))
-
-#     country_drop_down = driver.find_element_by_id("ctl00_BodyContentPlaceHolder_ddlCountry")
-#     selected_country_drop_down = Select(country_drop_down)
-#     selected_country_drop_down.select_by_visible_text("France")
-#     serial_number_search_bar = driver.find_element_by_id("ctl00_BodyContentPlaceHolder_SearchText_TextBox1")
-#     serial_number_search_bar.send_keys(get_web_data()["hp"]["data"]["0"]["serial_number"])
-#     serial_number_search_bar.send_keys(Keys.ENTER)

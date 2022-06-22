@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup as bs
 
-from utils.text_modifier import normalizer
+from utils.text_modifier import normalizer, array_to_nested_dict
 
 
 def table_scrap(content):
