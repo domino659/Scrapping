@@ -17,7 +17,7 @@ from utils.scrapping.bs4 import table_scrap
 from variable import PATH_CHROMEDRIVER
 
 
-def hp_warrenty_check():
+def scrapping_hp():
     number_index = 0
     # Extract data from json
     data = open_xlsx()
@@ -72,8 +72,6 @@ def hp_warrenty_check():
                 try:
                     product_number_search_bar = driver.find_element_by_id(
                         f"productNumber{i}")
-                    wait.until(EC.element_to_be_clickable((
-                        By.ID, f"productNumber{i}")))
                     product_number_search_bar.send_keys(
                         product_numbers_batch[i])
                 except NoSuchElementException:
@@ -129,3 +127,4 @@ def hp_warrenty_check():
             back_to_menu.click()
             i += 1
             number_index += 1
+    driver.quit()
