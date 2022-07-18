@@ -50,8 +50,6 @@ def scrapping_dell():
     driver.get(f"https://www.dell.com/support/home/fr-fr/product-support/servicetag/{num_serie}/overview"
                )
     sleep(randint(1, 3))
-    sleep(randint(1, 3))
-    sleep(randint(1, 3))
 
     wait.until(EC.element_to_be_clickable(
         (By.XPATH, "//*[@id='top']/div[2]/div[2]/a[1]")))
