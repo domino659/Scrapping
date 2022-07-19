@@ -16,11 +16,13 @@ from utils.log import *
 from utils.scrapping.bs4 import table_scrap
 from variable import PATH_CHROMEDRIVER
 
+file_name = "data_hp.xlsx"
+
 
 def scrapping_hp():
     number_index = 0
     # Extract data from json
-    data = open_xlsx()
+    data = open_xlsx(file_name)
 
     # Create lists with serial numbers and product numbers
     serial_numbers = list(data["serial_number"].values())
@@ -110,7 +112,8 @@ def scrapping_hp():
 
             # Transform scraped data into a dict that will be converted into a
             # dataframe and then entered in the xlsx document
-            modify_xlsx(data_contrat_assistance, data_garantie, number_index)
+            modify_xlsx(data_contrat_assistance,
+                        data_garantie, number_index, file_name)
 
             # Log for each product scrapped
             logging.info(f"Index {number_index} is being processed.")

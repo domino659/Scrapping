@@ -9,12 +9,16 @@ from utils.log import *
 
 
 CUR_DIR = Path(__file__).parent.parent
-DATA_FILE = os.path.join(CUR_DIR, "data", "data.xlsx")
 
 
-def open_xlsx():
+def find_dir(file_name):
+    file = os.path.join(CUR_DIR, "data", f"{file_name}")
+    return file
+
+
+def open_xlsx(file_name):
     # Read xlsx document
-    df = pd.read_excel(DATA_FILE, engine='openpyxl')
+    df = pd.read_excel(find_dir(file_name), engine='openpyxl')
     dict = df.to_dict()
     if df.empty:
         logging.info("File is empty.")
@@ -25,11 +29,11 @@ def open_xlsx():
     return dict
 
 
-def modify_xlsx(contrat, garantie, number_index):
+def modify_xlsx(contrat, garantie, number_index, file_name):
     filtred_garantie = delete_useless_info(garantie)
     contrat_dict = array_to_nested_dict(contrat, number_index)
     garantie_dict = array_to_nested_dict(filtred_garantie, number_index)
-    data = open_xlsx()
+    data = open_xlsx(find_dir(file_name))
     dd = defaultdict(dict)
 
     # Regroup the 3 dicts
@@ -41,6 +45,6 @@ def modify_xlsx(contrat, garantie, number_index):
     df = pd.DataFrame(dd)
 
     # Write it on the xlsx dociment
-    writer = pd.ExcelWriter(DATA_FILE, engine='xlsxwriter')
+    writer = pd.ExcelWriter(find_dir(file_name), engine='xlsxwriter')
     df.to_excel(writer, sheet_name='HP')
     writer.save()
